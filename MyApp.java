@@ -2,7 +2,7 @@ import java.util.Scanner;
 /**
  * MyApp 클래스의 설명을 작성하세요.
  *
- * @author (호준수)
+ * @author (호준수, 편규빈, 윤세연, 복창희)
  * @version (2026.05.10)
  */
 public class MyApp
@@ -10,12 +10,12 @@ public class MyApp
     static final int MAX = 200;
     static Scanner sc = new Scanner(System.in);
     
-    //과목&학점
+    // 과목&학점
     static String[] subjects = {"소프트웨어공학개론", "데이터사이언스개론", "컴퓨터데이터구조",
                                 "프로그래밍응용", "테크니컬라이팅", "프로그래밍기초"};
     static int[] credits = { 3, 3, 3, 3, 3, 3};
     
-    //학생 객체
+    // 학생 객체
     static Student[] student = new Student[MAX];
     static int count = 0;
     
@@ -61,11 +61,21 @@ public class MyApp
         System.out.println("------------------------------");
     }
     
-    //1.성적 입력
+    // 1. 성적 입력
     static void inputGrade(){
     }
     
-    //2.전체 성적 조회 
+    // 2. 전체 성적 조회 
     static void viewAll(){
+    }
+    
+    // 3. 학생별 성적 조회
+    static void searchStudent(){
+        
+    }
+    
+    // 4. 과목별 성적 조회
+    static void searchSubject(){
+        
     }
 }
