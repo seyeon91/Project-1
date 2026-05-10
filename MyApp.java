@@ -27,7 +27,7 @@ public class MyApp
         int menu;
         do{
             printMenu();
-            menu = inputIn("메뉴 선택: ", 0, 4);
+            menu = inputInt("메뉴 선택: ", 0, 4);
             
             switch (menu){
                 case 1:

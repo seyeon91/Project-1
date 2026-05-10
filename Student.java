@@ -45,8 +45,22 @@ public class Student
         }
     }
     
-    double getGPA(String grade){
-        return 0;
+    public double getGPA(String grade){
+        switch (grade){
+            case "A+":
+                return 4.5;
+            case "A":
+                return 4.0;
+            case "B+":
+                return 3.5;
+            case "B":
+                return 3.0;
+            case "C+":
+                return 2.5;
+            case "C":
+                return 2.0;
+            case "
+        }
     }
     
     double calcAvgGPA(int[] credits){
