@@ -60,4 +60,12 @@ public class MyApp
         System.out.println("  0. 종료");
         System.out.println("------------------------------");
     }
+    
+    //1.성적 입력
+    static void inputGrade(){
+    }
+    
+    //2.전체 성적 조회 
+    static void viewAll(){
+    }
 }
