@@ -44,7 +44,7 @@ public class Student
             return " ";
         }
     }
-    
+    //학점
     public double getGPA(String grade){
         switch (grade){
             case "A+":
@@ -59,15 +59,28 @@ public class Student
                 return 2.5;
             case "C":
                 return 2.0;
-            case "
+            case "D+":
+                return 1.5;
+            case "D":
+                return 1.0;
+            default:
+                return 0.0;
         }
     }
-    
-    double calcAvgGPA(int[] credits){
-        return 0;
+    //평균 계산기
+    public double calcAvgGPA(int[] credits){
+        double total = 0;
+        int creditSum = 0;
+        for (int i = 0; i < scores.length; i++){
+            if(scores[i] >= 0){
+                total += getGPA(getGrade(scores[i])) * credits[i];
+                creditSum += credits[i];
+            }
+        }
+        return (creditSum > 0) ? total / creditSum : 0.0;
     }
-    
-    void print(){
-        System.out.println("이름:" + name + "학번" + studentId);
+    //학생 정보 출력
+    public void print(){
+        System.out.println("이름:" + name + "학번" + studentId + " " + "학년 " + semester + "학기 ");
     }
 }
