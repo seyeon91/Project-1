@@ -27,7 +27,7 @@ public class MyApp
         int menu;
         do{
             printMenu();
-            menu = inputIn("메뉴 선택: ", 0, 4);
+            menu = inputInt("메뉴 선택: ", 0, 4);
             
             switch (menu){
                 case 1:
@@ -77,5 +77,28 @@ public class MyApp
     // 4. 과목별 성적 조회
     static void searchSubject(){
         
+    }
+    
+    //정수 입력
+    static int inputInt(String prompt, int min, int max){
+        while (true){
+            try {
+                if (!prompt.isEmpty()){
+                    System.out.print(prompt);
+                }
+                int val = Integer.parseInt(sc.nextLine());
+                if (val >= min && val <= max){
+                    return val;
+                }
+                System.out.println(" " + min + " ~ " + max + " 사이 값을 입력하세요.");
+            }
+            catch (NumberFormatException e){
+                System.out.println(" 숫자만 입력 가능합니다.");
+            }
+        }
+    }
+    // 프로그램 취소 가능 (q 입력시 취소, 미작성)
+    static int inputIntCancel(String prompt, int min, int max){
+        return 0;
     }
 }
