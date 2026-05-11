@@ -263,9 +263,9 @@ public class MyApp
         if(cnt > 0){
             double avg = Math.round((double) sum / cnt * 10) / 10.0;
             System.out.println("인원: " + cnt + "명"
-                + "최고: " + max + "점"
-                +" 최저: " + min + "점"
-                +" 평균: " + avg + "점");
+                + " 최고: " + max + "점"
+                + " 최저: " + min + "점"
+                + " 평균: " + avg + "점");
             
         }else{
             System.out.println("입력된 성적이 없습니다.");
