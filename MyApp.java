@@ -194,7 +194,7 @@ public class MyApp
             
             System.out.println("\n[ 성적표 ]");
             std.print();
-            System.out.println("과목명\t학점\t\t점수\t등급");
+            System.out.println("과목명\t\t학점\t점수\t등급");
             
             int[] scores = std.getScores();
             for(int j = 0; j < subjects.length; j++){
