@@ -7,17 +7,16 @@
  */
 public class Student
 {
-    String name;
-    String studentId;
-    int year;
-    int semester;
-    int[] scores;
+    //학생 클래스
+    private String name;
+    private int studentId;
+    private int year;
+    private int semester;
+    private int[] scores;
     
-    /**
-     * Student 클래스의 객체 생성자
-     */
-    public Student(String name, String studentId, int year, int semester)
-    {
+    
+    //Student 클래스의 객체 생성자
+    public Student(String name, int studentId, int year, int semester){
         this.name = name;
         this.studentId = studentId;
         this.year = year;
@@ -27,21 +26,54 @@ public class Student
             this.scores[i] = -1;
          }
     }
-
-    /**
-     * 점수 > 등급 변환
-     */
-    public String getGrade(int score)
-    {
+    
+    public String getName(){
+        return name;
+    }
+    public int getStudentId(){
+        return studentId;
+    }
+    public int getYear(){
+        return year;
+    }
+    public int getSemester(){
+        return semester;
+    }
+    public int[] getScores(){
+        return scores;
+    }
+    public void setScores(int index, int score){
+        this.scores[index] = score;
+    }
+    
+    // 점수 > 등급 변환
+    public String getGrade(int score){
         if(score >= 95){
             return "A+";
         }
         else if(score >= 90){
             return "A";
         }
-        //나머지 작성
+        else if(score >= 85){
+            return "B+";
+        }
+        else if(score >= 80){
+            return "B";
+        }
+        else if(score >= 75){
+            return "C+";
+        }
+        else if(score >= 70){
+            return "C";
+        }
+        else if(score >= 65){
+            return "D+";
+        }
+        else if(score >= 60){
+            return "D";
+        }
         else{
-            return " ";
+            return "F";
         }
     }
     //학점
