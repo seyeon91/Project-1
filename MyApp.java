@@ -12,8 +12,8 @@ public class MyApp
     static Scanner scan = new Scanner(System.in);
 
     // 과목&학점
-    static String[] subjects = {"소프트웨어공학개론", "데이터사이언스개론", "컴퓨터데이터구조",
-            "프로그래밍응용", "테크니컬라이팅", "프로그래밍기초"};
+    static String[] subjects = {"소프트웨어공학개론", "데이터사이언스개론", "컴퓨터데이터구조  ",
+            "프로그래밍응용   ", "테크니컬라이팅   ", "프로그래밍기초   "};
     static int[] credits = { 3, 3, 3, 3, 3, 3};
 
     // 학생 객체
@@ -194,7 +194,7 @@ public class MyApp
             
             System.out.println("\n[ 성적표 ]");
             std.print();
-            System.out.println("과목명\t\t학점\t점수\t등급");
+            System.out.println("과목명\t학점\t\t점수\t등급");
             
             int[] scores = std.getScores();
             for(int j = 0; j < subjects.length; j++){
@@ -236,7 +236,7 @@ public class MyApp
         index = index - 1;
         
         System.out.println("\n[ " + subjects[index] + " 성적 조회 ]");
-        System.out.println("이름\t\t학번\t\t점수\t등급");
+        System.out.println("이름\t학번\t\t점수\t등급");
         
         int sum = 0, cnt = 0, max = -1, min = 101;
         
