@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class MyApp
 {
     static final int MAX = 200;
-    static Scanner sc = new Scanner(System.in);
+    static Scanner scan = new Scanner(System.in);
     
     // 과목&학점
     static String[] subjects = {"소프트웨어공학개론", "데이터사이언스개론", "컴퓨터데이터구조",
@@ -54,9 +54,9 @@ public class MyApp
     static void printMenu(){
         System.out.println("\n----------------------------");
         System.out.println("  1. 성적 입력");
-        System.out.println("  2. 젼체 성저 조회");
+        System.out.println("  2. 전체 성적 조회");
         System.out.println("  3. 학생별 성적 조회");
-        System.out.println("  4. 과목별 성저 조회");
+        System.out.println("  4. 과목별 성적 조회");
         System.out.println("  0. 종료");
         System.out.println("------------------------------");
     }
@@ -69,8 +69,8 @@ public class MyApp
         }
         
         System.out.println("\n[ 성적 입력 ]");
-        System.out.print("이름  : "); String name = sc.nextLine();
-        System.out.print("학번  : "); String id   = sc.nextLine();
+        System.out.print("이름  : "); String name = scan.nextLine();
+        System.out.print("학번  : "); String id   = scan.nextLine();
         
     }
     
