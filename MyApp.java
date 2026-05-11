@@ -63,6 +63,15 @@ public class MyApp
     
     // 1. 성적 입력
     static void inputGrade(){
+        if (count >= MAX) {
+            System.out.println("최대 인원을 초과했습니다.");
+            return;
+        }
+        
+        System.out.println("\n[ 성적 입력 ]");
+        System.out.print("이름  : "); String name = sc.nextLine();
+        System.out.print("학번  : "); String id   = sc.nextLine();
+        
     }
     
     // 2. 전체 성적 조회 
