@@ -54,9 +54,9 @@ public class MyApp
     static void printMenu(){
         System.out.println("\n----------------------------");
         System.out.println("  1. 성적 입력");
-        System.out.println("  2. 전체 성적 조회");
+        System.out.println("  2. 젼체 성저 조회");
         System.out.println("  3. 학생별 성적 조회");
-        System.out.println("  4. 과목별 성적 조회");
+        System.out.println("  4. 과목별 성저 조회");
         System.out.println("  0. 종료");
         System.out.println("------------------------------");
     }
