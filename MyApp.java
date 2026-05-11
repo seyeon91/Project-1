@@ -7,7 +7,8 @@ import java.util.Scanner;
  */
 public class MyApp
 {
-    static final int MAX = 200;
+    static final int MAX = 200;// 총 인원수
+    static final int CANCEL = Integer.MIN_VALUE;//취소
     static Scanner scan = new Scanner(System.in);
     
     // 과목&학점
