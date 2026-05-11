@@ -69,7 +69,7 @@ public class MyApp
             return;
         }
 
-        System.out.println("\n[ 성적 입력 ] (취소: q)");
+        System.out.println("\n[ 성적 입력 ] ");
 
         // 이름 입력 -> q 이면 취소 
         System.out.print("이름  : ");
