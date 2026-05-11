@@ -68,10 +68,26 @@ public class MyApp
             return;
         }
         
-        System.out.println("\n[ 성적 입력 ]");
-        System.out.print("이름  : "); String name = scan.nextLine();
-        System.out.print("학번  : "); String id   = scan.nextLine();
+        System.out.println("\n[ 성적 입력 ] (취소: q)");
         
+        // 이름 입력 -> q 이면 취소 
+        System.out.print("이름  : ");
+        String name = scan.nextLine();
+        if (name.equals("q")){
+            System.out.println("성적 입력을 취소합니다.");
+            return;
+        }
+        
+        // 학번 입력 -> q 이면 취소
+        System.out.print("학번  : "); 
+        String id  = scan.nextLine();
+        if (id.equals("q")){
+            System.out.println("성적 입력을 취소합니다.");
+            return;
+        }
+        
+        // 학년 입력 -> CANCEL 이면 취소 
+        int year = 
     }
     
     // 2. 전체 성적 조회 
