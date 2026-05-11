@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class MyApp
 {
     static final int MAX = 200;// 총 인원수
-    static final int CANCEL = Integer.MIN_VALUE;//취소
+    static final int CANCEL = -20260515;//취소
     static Scanner scan = new Scanner(System.in);
     
     // 과목&학점
@@ -88,12 +88,85 @@ public class MyApp
         }
         
         // 학년 입력 -> CANCEL 이면 취소 
-        int year = 
+        int year = inputIntCancel("학년 (1~4): ", 1, 2);
+        if (year == CANCEL){
+            System.out.println("성적 입력을 취소합니다.");
+            return;
+        }
+        
+        // 학기 입력 -> CANCEL 이면 취소 
+        int sem = inputIntCancel("학기 (1~2): ", 1, 2);
+        if (sem == CANCEL){
+            System.out.println("성적 입력을 취소합니다.");
+            return;
+        }
+        
+        Student stu = new Student(name, id, year, sem); //객체 생성 
+        
+        System.out.println("\n 과목별 점수 입력 (0~100, 건너뛰기: -1, 취소: q)");
+        boolean cancelled = false;
+        for (int i = 0; i < subjects.length; i++){
+             System.out.print(subjects[i] + "\t: ");
+             int score = inputIntCancel("", -1, 100); 
+             if (score == CANCEL){
+                 cancelled = true;
+                break;
+            }
+            if (score >= 0){
+                stu.setScores(i, score);
+            }
+        }
+        
+        if (cancelled){
+            System.out.println("성적 입력을 취소합니다.");
+        } else {
+            student[count++] = stu;
+            System.out.println("\n등록 완료: " + name + " (" + id + ")");
+        }
     }
     
     // 2. 전체 성적 조회 
     static void viewAll(){
+        if (count == 0){
+            System.out.println("등록된 학생이 없습니다. ");
+            return;
+        }
+    
+        System.out.println("\n[ 전체 성적 조회 ]  (중단: q)");
+    
+        for (int i = 0; i < count; i++){
+           Student stu = student[i]; 
+             System.out.println("이름: " + stu.getName()
+                + "  학번: " + stu.getStudentId()
+                + "  " + stu.getYear() + "학년 " + stu.getSemester() + "학기");
+            
+             int[] scores = stu.getScores();
+             for (int j = 0; j < subjects.length; j++){
+                 if (scores[j] >= 0){
+                     System.out.println("  " + subjects[j]
+                        + ": " + scores[j] + "점" 
+                        + "  (" + stu.getGrade(scores[j]) + ")"); 
+            }
+            else{
+                 System.out.println("  " + subjects[j] + "\t: 미입력");
+                }
+       }
+       
+       double gpa = Math.round(stu.calcAvgGPA(credits) * 100)  / 100.0;
+       System.out.println("  평점 평균: " + gpa);
+       
+       //마지막 학생이 아닐 때만 계속 여부 확인 
+       if (i < count -1){
+           System.out.print("  계속: Enter  /  중단:q  >>  ");
+           String input = scan.nextLine();
+           if (input.equals("q")){
+               System.out.println("조회를 중단합니다.");
+               break;
+            }
+       }
     }
+} 
+    
     
     // 3. 학생별 성적 조회
     static void searchStudent(){
