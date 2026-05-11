@@ -272,7 +272,7 @@ public class MyApp
         }
     }
 
-    // 정수 입력 (예외처리)
+    // 정수 입력 (예외처리) >> (0 입력 시 종료)
     static int inputInt(String prompt, int min, int max){
         while (true){                   //while 반복문
             try {
@@ -290,7 +290,7 @@ public class MyApp
             }
         }
     }
-    // 프로그램 종료기능 (q 입력시 종료)
+    // 프로그램 중단 기능 (q 입력시 초기화)
     static int inputIntCancel(String prompt, int min, int max){
         while (true){                   //while 반복문
             try {
