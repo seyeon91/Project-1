@@ -223,7 +223,7 @@ public class MyApp
 
     // 4. 과목별 성적 조회
     static void searchSubject(){
-        System.out.print("\n과목 선택:  (취소: q)");
+        System.out.println("\n과목 선택:  (취소: q)");
         for(int i = 0; i < subjects.length; i++){
             System.out.println("  " + (i + 1) + ". " + subjects[i]);
         }
