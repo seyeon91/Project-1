@@ -88,26 +88,44 @@ public class MyApp
         
     }
     
-    //정수 입력
+    // 정수 입력 (예외처리)
     static int inputInt(String prompt, int min, int max){
-        while (true){
+        while (true){                   //while 반복문
             try {
                 if (!prompt.isEmpty()){
                     System.out.print(prompt);
                 }
-                int val = Integer.parseInt(sc.nextLine());
-                if (val >= min && val <= max){
+                int val = Integer.parseInt(scan.nextLine());
+                if (val >= min && val <= max){ 
                     return val;
                 }
-                System.out.println(" " + min + " ~ " + max + " 사이 값을 입력하세요.");
+                System.out.println(" " + min + " ~ " + max + " 사이의 값을 입력해주세요.");
             }
-            catch (NumberFormatException e){
+            catch (NumberFormatException e){        // 예외처리
                 System.out.println(" 숫자만 입력 가능합니다.");
             }
         }
     }
-    // 프로그램 취소 가능 (q 입력시 취소, 미작성)
+    // 프로그램 종료기능 (q 입력시 종료)
     static int inputIntCancel(String prompt, int min, int max){
-        return 0;
+        while (true){                   //while 반복문
+            try {
+                if (!prompt.isEmpty()){
+                    System.out.print(prompt);
+                }
+                String line = scan.nextLine();
+                if (line.equals("q")){  // if 조건문 - q 입력 시 취소
+                    return CANCEL;
+                }
+                int val = Integer.parseInt(line);
+                if (val >= min && val <= max){
+                    return val;
+                }
+                System.out.println(" " + min + " ~ " + max + " 사이의 값을 입력해주세요. (취소: q)");
+            }
+            catch (NumberFormatException e){        // 예외처리
+                System.out.println(" 숫자 또는 q를 입력하세요.");
+            }
+        }
     }
 }
