@@ -21,8 +21,8 @@ public class Student
         this.studentId = studentId;
         this.year = year;
         this.semester = semester;
-        this.scores = new int[6];
-        for(int i = 0; i < 6; i++){
+        this.scores = new int[10];
+        for(int i = 0; i < 10; i++){
             this.scores[i] = -1;
          }
     }

@@ -12,9 +12,11 @@ public class MyApp
     static Scanner scan = new Scanner(System.in);
 
     // 과목&학점
-    static String[] subjects = {"소프트웨어공학개론", "데이터사이언스개론", "컴퓨터데이터구조  ",
-            "프로그래밍응용   ", "테크니컬라이팅   ", "프로그래밍기초   "};
-    static int[] credits = { 3, 3, 3, 3, 3, 3};
+    static String[] subjects = {"AI소프트웨어기초1", "소프트웨어공학개론", "프로그래밍응용1(PBL)",
+                                "컴퓨터데이터구조", "DB설계와활용", "소프트웨어품질관리",
+                                "SW프로젝트", "기초IT산업트렌드와진로", "MLOps(블렌디드)",
+                                "IT기술마케팅방법론", "IT기술마케팅방법론", "AIX시스템최적화"};
+    static int[] credits = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
 
     // 학생 객체
     static Student[] students = new Student[MAX];
@@ -55,8 +57,8 @@ public class MyApp
     static void printMenu(){
         System.out.println("\n----------------------------");
         System.out.println("  1. 성적 입력");
-        System.out.println("  2. 전체 성적 조회");
-        System.out.println("  3. 학생별 성적 조회");
+        System.out.println("  2. 전체 학생 성적표");
+        System.out.println("  3. 학생 성적 조회");
         System.out.println("  4. 과목별 성적 조회");
         System.out.println("  0. 종료");
         System.out.println("----------------------------");
@@ -96,19 +98,52 @@ public class MyApp
         }
 
         Student std = new Student(name, id, year, sem); //객체 생성 
-
-        System.out.println("\n 과목별 점수 입력 (0~100, 건너뛰기: -1, 취소: -9)");
+        
+        System.out.println("\n[ 개설 과목 목록 ]");
+        for(int i = 0; i < subjects.length; i++){
+            System.out.print(subjects[i]);
+            if(i < subjects.length - 1){
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
+        System.out.println("\n점수를 입력할 과목명을 직접 입력해주세요. (입력을 모두 마치려면 Enter를 누르세요.)");
+        
         boolean cancelled = false;
-        for (int i = 0; i < subjects.length; i++){
-            System.out.print(subjects[i] + "\t: ");
-            int score = inputInt("", -1, 100); 
-            if (score == CANCEL){
+        while(true){
+            System.out.print("\n과목명 입력 (입력 완료: Enter): ");
+            String subjectName = scan.nextLine();
+            
+            // 엔터만 치면 입력을 종료하고 저장 단계로 넘어감
+            if(subjectName.isEmpty()){
+                break;
+            }
+            
+            // 입력한 과목명이 배열에 있는지 찾기
+            int index = -1;
+            for(int i = 0; i < subjects.length; i++){
+                if(subjects[i].equals(subjectName)){
+                    index = i;
+                    break;
+                }
+            }
+            
+            // 잘못된 과목명을 입력했을 경우
+            if(index == -1){
+                System.out.println("존재하지 않는 과목입니다.");
+                continue;
+            }
+            
+            // 올바른 과목명이라면 해당 과목의 점수 입력
+            int score = inputInt(subjects[index] + "점수 (0~100, 입력 전체 취소: q): ", 0, 100);
+            if(score == CANCEL){
                 cancelled = true;
                 break;
             }
-            if (score >= 0){
-                std.setScores(i, score);
-            }
+            
+            // 학생 객체 점수 저장
+            std.setScores(index, score);
+            System.out.println(">> [" + subjects[index] + "] 과목 성적이 " + score + "점으로 등록되었습니다.");
         }
 
         if (cancelled){
@@ -119,7 +154,7 @@ public class MyApp
         }
     }
 
-    // 2. 전체 성적 조회 
+    // 2. 전체 학생 성적표 
     static void viewAll(){
         if (count == 0){
             System.out.println("등록된 학생이 없습니다. ");
@@ -135,11 +170,16 @@ public class MyApp
                 + "  " + std.getYear() + "학년 " + std.getSemester() + "학기");
 
             int[] scores = std.getScores();
+            double sum = 0.0;
+            int cnt = 0;
+            
             for (int j = 0; j < subjects.length; j++){
-                    if (scores[j] >= 0){
+                if (scores[j] >= 0){
                     System.out.println("  " + subjects[j]
                         + ": " + scores[j] + "점" 
-                        + "  (" + std.getGrade(scores[j]) + ")"); 
+                        + "  (" + std.getGrade(scores[j]) + ")");
+                    sum += std.getGPA(std.getGrade(scores[j]));
+                    cnt++;
                 }
                 else{
                     System.out.println("  " + subjects[j] + "\t: 미입력");
@@ -159,10 +199,9 @@ public class MyApp
                 }
             }
         }
-        
     } 
 
-    // 3. 학생별 성적 조회
+    // 3. 학생 성적 조회
     static void searchStudent(){
         int keyword = inputInt("\n검색할 학번 입력 (취소: -9): ", 0, 2147483647);//2147483647 = int 최대값 
         if(keyword == CANCEL){   // if 조건문 - 탈출
@@ -182,6 +221,8 @@ public class MyApp
             System.out.println("과목명\t\t학점\t점수\t등급");
             
             int[] scores = s.getScores();
+            double sum = 0.0;
+            int cnt = 0;
             for(int j = 0; j < subjects.length; j++){
                 if(scores[j] >= 0){
                    System.out.println(subjects[j]
@@ -195,12 +236,12 @@ public class MyApp
                 }
             }
             
-            double gpa = Math.round(s.calcAvgGPA(credits) * 100) / 100.0;
+            double gpa = (int)((double) sum / cnt * 10) / 10.0;
             System.out.println("평점 평균: " + gpa);
             
             // 마지막 학생이 아닐 때만 계속 여부 확인
             if(i < count - 1){
-                System.out.print("계속: Enter / 중단: q >>  ");
+                System.out.print("계속: Enter / 중단: -9 >>  ");
                 break;
             }
         }
@@ -208,17 +249,34 @@ public class MyApp
 
     // 4. 과목별 성적 조회
     static void searchSubject(){
-        System.out.println("\n과목 선택:  (취소: q)");
+        System.out.println("\n과목 선택:  (취소: -9)");
         for(int i = 0; i < subjects.length; i++){
-            System.out.println("  " + (i + 1) + ". " + subjects[i]);
+            System.out.println(subjects[i]);
+            if( i < subjects.length - 1){
+                System.out.print(", ");
+            }
         }
+        System.out.println();
+        System.out.print("\n조회할 과목명 입력(취소: -9): ");
+        String keyword = scan.nextLine();
         
-        int index = inputInt("선택: ", 1, subjects.length);
-        if(index == CANCEL){
+        if(keyword.equals("q")){
             System.out.println("조회를 취소합니다.");
             return;
         }
-        index = index - 1;
+        
+        int index = -1;
+        for(int i = 0; i < subjects.length; i++){
+            if(subjects[i].equals(keyword)){
+                index = i;
+                break;
+            }
+        }
+        
+        if(index == -1){
+            System.out.println("입력하신 과목명(" + keyword + ")을 찾을 수 없습니다. 정확히 입력해주세요.");
+            return;
+        }
         
         System.out.println("\n[ " + subjects[index] + " 성적 조회 ]");
         System.out.println("이름\t학번\t\t점수\t등급");
@@ -246,7 +304,7 @@ public class MyApp
         }
         
         if(cnt > 0){
-            double avg = Math.round((double) sum / cnt * 10) / 10.0;
+            double avg = (int)((double) sum / cnt * 10) / 10.0;
             System.out.println("인원: " + cnt + "명"
                 + " 최고: " + max + "점"
                 + " 최저: " + min + "점"
