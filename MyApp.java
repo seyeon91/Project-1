@@ -102,38 +102,23 @@ public class MyApp
         
         System.out.println("\n[ 개설 과목 목록 ]");
         for(int i = 0; i < subjects.length; i++){
-            System.out.print(subjects[i]);
-            if(i < subjects.length - 1){
-                System.out.print(", ");
-            }
+            System.out.println(" " + (i + 1) + ", " + subjects[i]);
         }
-        System.out.println();
-        System.out.println("\n점수를 입력할 과목명을 직접 입력해주세요. (입력을 모두 마치려면 Enter를 누르세요.)");
+        System.out.println("0. 입력완료");
         
         boolean cancelled = false;
         while(true){
-            System.out.print("\n과목명 입력 (입력 완료: Enter): ");
-            String subjectName = scan.nextLine();
+            int subNum = inputInt("\n과목 번호 선택 (완료: 0, 취소: -9): ", 0, subjects.length);
             
-            // 엔터만 치면 입력을 종료하고 저장 단계로 넘어감
-            if(subjectName.isEmpty()){
+            if(subNum == CANCEL){
+                cancelled = true;
                 break;
             }
             
-            // 입력한 과목명이 배열에 있는지 찾기
-            int index = -1;
-            for(int i = 0; i < subjects.length; i++){
-                if(subjects[i].equals(subjectName)){
-                    index = i;
-                    break;
-                }
+            if(subNum == 0){
+                break;
             }
-            
-            // 잘못된 과목명을 입력했을 경우
-            if(index == -1){
-                System.out.println("존재하지 않는 과목입니다.");
-                continue;
-            }
+            int index = subNum -1;
             
             // 올바른 과목명이라면 해당 과목의 점수 입력
             int score = inputInt(subjects[index] + "점수 (0~100, 입력 전체 취소: -9): ", 0, 100);
