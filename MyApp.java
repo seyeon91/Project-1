@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 /**
  * MyApp 클래스의 설명을 작성하세요.
  *
@@ -120,7 +121,7 @@ public class MyApp
             int index = subNum -1;
             
             // 올바른 과목명이라면 해당 과목의 점수 입력
-            int score = inputInt(subjects[index] + "점수 (0~100, 입력 전체 취소: q): ", 0, 100);
+            int score = inputInt(subjects[index] + "점수 (0~100, 입력 전체 취소: -9): ", 0, 100);
             if(score == CANCEL){
                 cancelled = true;
                 break;
@@ -316,7 +317,7 @@ public class MyApp
                 }
                 System.out.println(" " + min + " ~ " + max + " 사이의 값을 입력해주세요. (취소: -9)");
             }
-            catch (NumberFormatException e){
+            catch (InputMismatchException e){
                 scan.nextLine();
                 System.out.println(" 숫자 또는 -9를 입력하세요.");
             }
