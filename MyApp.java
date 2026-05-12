@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class MyApp
 {
     static final int MAX = 200;// 총 인원수
-    static final int CANCEL = -20260515;//취소
+    static final int CANCEL = -9;//취소
     static Scanner scan = new Scanner(System.in);
 
     // 과목&학점
@@ -17,7 +17,7 @@ public class MyApp
     static int[] credits = { 3, 3, 3, 3, 3, 3};
 
     // 학생 객체
-    static Student[] student = new Student[MAX];
+    static Student[] students = new Student[MAX];
     static int count = 0;
 
     public static void main(String[] args){
@@ -59,7 +59,7 @@ public class MyApp
         System.out.println("  3. 학생별 성적 조회");
         System.out.println("  4. 과목별 성적 조회");
         System.out.println("  0. 종료");
-        System.out.println("------------------------------");
+        System.out.println("----------------------------");
     }
 
     // 1. 성적 입력
@@ -71,39 +71,25 @@ public class MyApp
 
         System.out.println("\n[ 성적 입력 ] ");
 
-        // 이름 입력 -> q 이면 취소 
+        // 이름 입력 -> -9 이면 취소 
         System.out.print("이름  : ");
         String name = scan.nextLine();
-        if (name.equals("q")){
+        
+        int id = inputInt("학번 : ", 0, 2147483647);//2147483647 = int 최대값 
+        if (id == CANCEL){
             System.out.println("성적 입력을 취소합니다.");
             return;
         }
 
-        // 학번 입력 -> q 이면 취소
-        System.out.print("학번  : "); 
-        String idStr  = scan.nextLine();
-        if (idStr.equals("q")){
-            System.out.println("성적 입력을 취소합니다.");
-            return;
-        }
-        
-        int id = 0;
-        try{
-            id = Integer.parseInt(idStr);
-        } catch(NumberFormatException e) {
-            System.out.println("학번은 숫자만 입력 가능합니다.");
-            return;
-        }
-        
-        // 학년 입력 -> CANCEL 이면 취소 
-        int year = inputIntCancel("학년 (1~4): ", 1, 2);
+        // 학번 입력 -> -9 이면 취소
+        int year = inputInt("학년 (1~4, 취소: -9): ", 1, 4);
         if (year == CANCEL){
             System.out.println("성적 입력을 취소합니다.");
             return;
         }
-
+        
         // 학기 입력 -> CANCEL 이면 취소 
-        int sem = inputIntCancel("학기 (1~2): ", 1, 2);
+        int sem = inputInt("학기 (1~2, 취소: -9): ", 1, 2);
         if (sem == CANCEL){
             System.out.println("성적 입력을 취소합니다.");
             return;
@@ -111,11 +97,11 @@ public class MyApp
 
         Student std = new Student(name, id, year, sem); //객체 생성 
 
-        System.out.println("\n 과목별 점수 입력 (0~100, 건너뛰기: -1, 취소: q)");
+        System.out.println("\n 과목별 점수 입력 (0~100, 건너뛰기: -1, 취소: -9)");
         boolean cancelled = false;
         for (int i = 0; i < subjects.length; i++){
             System.out.print(subjects[i] + "\t: ");
-            int score = inputIntCancel("", -1, 100); 
+            int score = inputInt("", -1, 100); 
             if (score == CANCEL){
                 cancelled = true;
                 break;
@@ -128,7 +114,7 @@ public class MyApp
         if (cancelled){
             System.out.println("성적 입력을 취소합니다.");
         } else {
-            student[count++] = std;
+            students[count++] = std;
             System.out.println("\n등록 완료: " + name + " (" + id + ")");
         }
     }
@@ -140,10 +126,10 @@ public class MyApp
             return;
         }
 
-        System.out.println("\n[ 전체 성적 조회 ]  (중단: q)");
+        System.out.println("\n[ 전체 성적 조회 ]  (중단: -9)");
 
         for (int i = 0; i < count; i++){
-            Student std = student[i]; 
+            Student std = students[i]; 
             System.out.println("이름: " + std.getName()
                 + "  학번: " + std.getStudentId()
                 + "  " + std.getYear() + "학년 " + std.getSemester() + "학기");
@@ -165,44 +151,43 @@ public class MyApp
 
             //마지막 학생이 아닐 때만 계속 여부 확인 
             if (i < count -1){
-                System.out.print("  계속: Enter  /  중단:q  >>  ");
-                String input = scan.nextLine();
-                if (input.equals("q")){
+                System.out.print("  계속: Enter  /  중단: -9  >>  ");
+                int input = inputInt("", -9, 1);
+                if (input == CANCEL){
                     System.out.println("조회를 중단합니다.");
                     break;
                 }
             }
         }
+        
     } 
 
     // 3. 학생별 성적 조회
     static void searchStudent(){
-        System.out.print("\n이름 또는 학번 입력 (취소: q): ");
-        String keyword = scan.nextLine();
-        
-        if(keyword.equals("q")){   // if 조건문 - 탈출
+        int keyword = inputInt("\n검색할 학번 입력 (취소: -9): ", 0, 2147483647);//2147483647 = int 최대값 
+        if(keyword == CANCEL){   // if 조건문 - 탈출
             System.out.println("조회를 취소합니다.");
             return;
         }
         
         boolean found = false;
         for(int i = 0; i < count; i++){
-            Student std = student[i];
-            if(!std.getName().equals(keyword) && !(std.getStudentId() + "").equals(keyword)){
+            if(students[i].getStudentId() != keyword){
                continue; 
             }
             
+            Student s = students[i];
             System.out.println("\n[ 성적표 ]");
-            std.print();
+            s.print();
             System.out.println("과목명\t\t학점\t점수\t등급");
             
-            int[] scores = std.getScores();
+            int[] scores = s.getScores();
             for(int j = 0; j < subjects.length; j++){
                 if(scores[j] >= 0){
                    System.out.println(subjects[j]
                        + "\t" + credits[j] + "학점"
                        + "\t" + scores[j] + "점"
-                       + "\t" + std.getGrade(scores[j]));
+                       + "\t" + s.getGrade(scores[j]));
                 }else{
                     System.out.println(subjects[j]
                         + "\t" + credits[j] + "학점"
@@ -210,7 +195,7 @@ public class MyApp
                 }
             }
             
-            double gpa = Math.round(std.calcAvgGPA(credits) * 100) / 100.0;
+            double gpa = Math.round(s.calcAvgGPA(credits) * 100) / 100.0;
             System.out.println("평점 평균: " + gpa);
             
             // 마지막 학생이 아닐 때만 계속 여부 확인
@@ -228,7 +213,7 @@ public class MyApp
             System.out.println("  " + (i + 1) + ". " + subjects[i]);
         }
         
-        int index = inputIntCancel("선택: ", 1, subjects.length);
+        int index = inputInt("선택: ", 1, subjects.length);
         if(index == CANCEL){
             System.out.println("조회를 취소합니다.");
             return;
@@ -241,14 +226,14 @@ public class MyApp
         int sum = 0, cnt = 0, max = -1, min = 101;
         
         for(int i = 0; i < count; i++){
-            int score = student[i].getScores()[index];
+            int score = students[i].getScores()[index];
             if(score < 0){
                 continue;
             }
-            System.out.println(student[i].getName()
-                + "\t" + student[i].getStudentId()
+            System.out.println(students[i].getName()
+                + "\t" + students[i].getStudentId()
                 + "\t" + score + "점"
-                + "\t" + student[i].getGrade(score));
+                + "\t" + students[i].getGrade(score));
             sum += score;
             cnt++;
             if(score > max){
@@ -272,43 +257,25 @@ public class MyApp
         }
     }
 
-    // 정수 입력 (예외처리) >> (0 입력 시 종료)
+    // 프로그램 중단 기능 (-9 입력시 초기화)
     static int inputInt(String prompt, int min, int max){
         while (true){                   //while 반복문
             try {
-                if (!prompt.equals("")){
-                    System.out.print(prompt);
-                }
-                int val = Integer.parseInt(scan.nextLine());
-                if (val >= min && val <= max){ 
-                    return val;
-                }
-                System.out.println(" " + min + " ~ " + max + " 사이의 값을 입력해주세요.");
-            }
-            catch (NumberFormatException e){        // 예외처리
-                System.out.println(" 숫자만 입력 가능합니다.");
-            }
-        }
-    }
-    // 프로그램 중단 기능 (q 입력시 초기화)
-    static int inputIntCancel(String prompt, int min, int max){
-        while (true){                   //while 반복문
-            try {
-                if (!prompt.equals("")){
-                    System.out.print(prompt);
-                }
-                String line = scan.nextLine();
-                if (line.equals("q")){  // if 조건문 - q 입력 시 취소
+                System.out.print(prompt);
+
+                int val = scan.nextInt();
+                scan.nextLine();
+                if (val == CANCEL){  // if 조건문 -9 입력 시 취소
                     return CANCEL;
                 }
-                int val = Integer.parseInt(line);
                 if (val >= min && val <= max){
                     return val;
                 }
-                System.out.println(" " + min + " ~ " + max + " 사이의 값을 입력해주세요. (취소: q)");
+                System.out.println(" " + min + " ~ " + max + " 사이의 값을 입력해주세요. (취소: -9)");
             }
-            catch (NumberFormatException e){        // 예외처리
-                System.out.println(" 숫자 또는 q를 입력하세요.");
+            catch (NumberFormatException e){
+                scan.nextLine();
+                System.out.println(" 숫자 또는 -9를 입력하세요.");
             }
         }
     }
