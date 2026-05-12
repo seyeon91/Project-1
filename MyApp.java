@@ -200,7 +200,7 @@ public class MyApp
             
             // 마지막 학생이 아닐 때만 계속 여부 확인
             if(i < count - 1){
-                System.out.print("계속: Enter / 중단: q >>  ");
+                System.out.print("계속: Enter / 중단: -9 >>  ");
                 break;
             }
         }
@@ -208,7 +208,7 @@ public class MyApp
 
     // 4. 과목별 성적 조회
     static void searchSubject(){
-        System.out.println("\n과목 선택:  (취소: q)");
+        System.out.println("\n과목 선택:  (취소: -9)");
         for(int i = 0; i < subjects.length; i++){
             System.out.println("  " + (i + 1) + ". " + subjects[i]);
         }
