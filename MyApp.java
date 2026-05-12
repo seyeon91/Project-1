@@ -150,7 +150,7 @@ public class MyApp
 
             int[] scores = std.getScores();
             for (int j = 0; j < subjects.length; j++){
-                if (scores[j] >= 0){
+                    if (scores[j] >= 0){
                     System.out.println("  " + subjects[j]
                         + ": " + scores[j] + "점" 
                         + "  (" + std.getGrade(scores[j]) + ")"); 
@@ -160,7 +160,7 @@ public class MyApp
                 }
             }
 
-            double gpa = Math.round(std.calcAvgGPA(credits) * 100)  / 100.0;
+            double gpa = (int)(std.calcAvgGPA(credits) * 100)  / 100.0;
             System.out.println("  평점 평균: " + gpa);
 
             //마지막 학생이 아닐 때만 계속 여부 확인 
@@ -188,7 +188,7 @@ public class MyApp
         boolean found = false;
         for(int i = 0; i < count; i++){
             Student std = student[i];
-            if(!std.getName().equals(keyword) && !String.valueOf(std.getStudentId()).equals(keyword)){
+            if(!std.getName().equals(keyword) && !(std.getStudentId() + "").equals(keyword)){
                continue; 
             }
             
@@ -276,7 +276,7 @@ public class MyApp
     static int inputInt(String prompt, int min, int max){
         while (true){                   //while 반복문
             try {
-                if (!prompt.isEmpty()){
+                if (!prompt.equals("")){
                     System.out.print(prompt);
                 }
                 int val = Integer.parseInt(scan.nextLine());
@@ -294,7 +294,7 @@ public class MyApp
     static int inputIntCancel(String prompt, int min, int max){
         while (true){                   //while 반복문
             try {
-                if (!prompt.isEmpty()){
+                if (!prompt.equals("")){
                     System.out.print(prompt);
                 }
                 String line = scan.nextLine();
