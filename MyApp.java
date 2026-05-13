@@ -13,11 +13,9 @@ public class MyApp
     static Scanner scan = new Scanner(System.in);
 
     // 과목&학점
-    static String[] subjects = {"AI소프트웨어기초1", "소프트웨어공학개론", "프로그래밍응용1(PBL)",
-                                "컴퓨터데이터구조", "DB설계와활용", "소프트웨어품질관리",
-                                "SW프로젝트", "기초IT산업트렌드와진로", "MLOps(블렌디드)",
-                                "IT기술마케팅방법론", "IT기술마케팅방법론", "AIX시스템최적화"};
-    static int[] credits = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
+    static String[] subjects = new String[100];
+    static int[] credits = new int[100];
+    static int subjectCount = 0;
 
     // 학생 객체
     static Student[] students = new Student[MAX];
