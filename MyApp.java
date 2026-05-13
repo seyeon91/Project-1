@@ -224,10 +224,9 @@ public class MyApp
                 System.out.println("평점 평균: " + gpa);
                 found = true;
             }    
-            // 마지막 학생이 아닐 때만 계속 여부 확인
+            
             if(i < count - 1){
-                System.out.print("계속: Enter / 중단: -9 >>  ");
-                break;
+                System.out.print("해당 학번의 학생을 찾을 수 없습니다.");
             }
         }
     }
