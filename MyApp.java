@@ -97,39 +97,55 @@ public class MyApp
         }
 
         Student std = new Student(name, id, year, sem); //객체 생성 
-        
-        System.out.println("\n[ 개설 과목 목록 ]");
-        for(int i = 0; i < subjects.length; i++){
-            System.out.println(" " + (i + 1) + ", " + subjects[i]);
-        }
-        System.out.println("0. 입력완료");
-        
         boolean cancelled = false;
-        while(true){
-            int subNum = inputInt("\n과목 번호 선택 (완료: 0, 취소: -9): ", 0, subjects.length);
+        
+        int newCount = inputInt("\n입력할 과목 수 = (1~12): ", 1, 12);
+        System.out.println("\n과목명과 점수 입력 (건너뛰기: -1, 취소: -9)");
+        
+        for (int i = 0; i < newCount; i++){
+            //새 과목명 입력
+            System.out.print((i + 1) + "번 과목명: ");
+            String newName = scan.nextLine();
             
-            if(subNum == CANCEL){
-                cancelled = true;
-                break;
+            //기존 과목과 비교
+            int existIndex = -1;
+            for(int j = 0; j < subjectCount; j++){
+                if (subjects[j].equals(newName)){
+                    existIndex = j;
+                    break;
+                }
             }
             
-            if(subNum == 0){
-                break;
+        
+        
+            if  (existIndex >= 0){
+                //이미 있는과목 기존 인덱스에 점수 저장
+                System.out.println("   기존 과목 [" + newName + "] 에 점수를 입력합니다.");
+                int score = inputInt("   점수 (0~100, 건너뛰기: -1): ", -1, 100);
+                if(score == CANCEL){
+                    cancelled = true;
+                    break;
+                }
+                std.setScores(existIndex, score);
             }
-            int index = subNum -1;
-            
-            // 올바른 과목명이라면 해당 과목의 점수 입력
-            int score = inputInt(subjects[index] + "점수 (0~100, 입력 전체 취소: -9): ", 0, 100);
-            if(score == CANCEL){
-                cancelled = true;
-                break;
+            else {
+                // 새 과목 누적 배열에 추가
+                int credit = inputInt("   학점 (1~3): ", 1, 3);
+                subjects[subjectCount] = newName;
+                credits[subjectCount]  = credit;
+                
+                int score = inputInt("   점수 (0~100, 건너뛰기: -1): ", -1, 100);
+                if(score == CANCEL){
+                    cancelled = true;
+                    break;
+                }
+                if (score >= 0){
+                    std.setScores(subjectCount, score);
+                }
+                subjectCount++;
             }
-            
-            // 학생 객체 점수 저장
-            std.setScores(index, score);
-            System.out.println(">> [" + subjects[index] + "] 과목 성적이 " + score + "점으로 등록되었습니다.");
         }
-
+        
         if (cancelled){
             System.out.println("성적 입력을 취소합니다.");
         } else {
