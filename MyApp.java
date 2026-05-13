@@ -157,7 +157,7 @@ public class MyApp
     // 2. 전체 학생 성적표 
     static void viewAll(){
         if (count == 0){
-            System.out.println("등록된 학생이 없습니다. ");
+            System.out.println("등록된 학생이 없습니다.");
             return;
         }
 
@@ -170,19 +170,11 @@ public class MyApp
                 + "  " + std.getYear() + "학년 " + std.getSemester() + "학기");
 
             int[] scores = std.getScores();
-            double sum = 0.0;
-            int cnt = 0;
-            
-            for (int j = 0; j < subjects.length; j++){
+            for (int j = 0; j < subjectCount; j++){
                 if (scores[j] >= 0){
                     System.out.println("  " + subjects[j]
                         + ": " + scores[j] + "점" 
                         + "  (" + std.getGrade(scores[j]) + ")");
-                    sum += std.getGPA(std.getGrade(scores[j]));
-                    cnt++;
-                }
-                else{
-                    System.out.println("  " + subjects[j] + "\t: 미입력");
                 }
             }
 
@@ -191,7 +183,7 @@ public class MyApp
 
             //마지막 학생이 아닐 때만 계속 여부 확인 
             if (i < count -1){
-                System.out.print("  계속: Enter  /  중단: -9  >>  ");
+                System.out.print("  계속: 1  /  중단: -9  >>  ");
                 int input = inputInt("", -9, 1);
                 if (input == CANCEL){
                     System.out.println("조회를 중단합니다.");
