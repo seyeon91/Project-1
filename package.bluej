@@ -2,10 +2,10 @@
 dependency1.from=MyApp
 dependency1.to=Student
 dependency1.type=UsesDependency
-editor.fx.0.height=884
-editor.fx.0.width=865
-editor.fx.0.x=847
-editor.fx.0.y=0
+editor.fx.0.height=966
+editor.fx.0.width=854
+editor.fx.0.x=628
+editor.fx.0.y=60
 objectbench.height=93
 objectbench.width=935
 package.divider.horizontal=0.6

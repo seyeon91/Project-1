@@ -145,7 +145,6 @@ public class MyApp
                 // 새 과목 누적 배열에 추가
                 int credit = inputInt("   학점 (1~3, 취소: -9): ", 1, 3);
                 if(credit == CANCEL){
-                    System.out.println("성적 입력을 취소합니다.");
                     cancelled = true;
                     break;
                 }
@@ -154,7 +153,6 @@ public class MyApp
 
                 int score = inputInt("   점수 (0~100, 건너뛰기: -1): ", -1, 100);
                 if(score == CANCEL){
-                    System.out.println("과목 입력을 건너뜁니다.");
                     cancelled = true;
                     break;
                 }
