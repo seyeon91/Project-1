@@ -70,11 +70,15 @@ public class MyApp
             return;
         }
 
-        System.out.println("\n[ 성적 입력 ] ");
+        System.out.println("\n[ 성적 입력 ] 취소: -9");
 
         // 이름 입력 -> -9 이면 취소 
         System.out.print("이름  : ");
         String name = scan.nextLine();
+        if (name.equals("-9")){
+            System.out.println("성적 입력을 취소합니다.");
+            return;
+        }
 
         int id = inputInt("학번 : ", 0, 2147483647);//2147483647 = int 최대값 
         if (id == CANCEL){
@@ -106,7 +110,15 @@ public class MyApp
             //새 과목명 입력
             System.out.print((i + 1) + "번 과목명: ");
             String newName = scan.nextLine();
-
+            
+            if(newName.equals("-9")){
+                cancelled = true;
+                break;
+            }
+            if(newName.equals("-1")){
+                System.out.println("과목 입력을 건너뜁니다.");
+                continue;
+            }
             //기존 과목과 비교
             int existIndex = -1;
             for(int j = 0; j < subjectCount; j++){
@@ -116,25 +128,33 @@ public class MyApp
                 }
             }
 
-        
             if  (existIndex >= 0){
                 //이미 있는과목 기존 인덱스에 점수 저장
                 System.out.println("   기존 과목 [" + newName + "] 에 점수를 입력합니다.");
                 int score = inputInt("   점수 (0~100, 건너뛰기: -1): ", -1, 100);
                 if(score == CANCEL){
+                    System.out.println("과목 입력을 건너뜁니다. ");
                     cancelled = true;
                     break;
                 }
-                std.setScores(existIndex, score);
+                if(score >= 0){
+                    std.setScores(existIndex, score);
+                }
             }
             else {
                 // 새 과목 누적 배열에 추가
-                int credit = inputInt("   학점 (1~3): ", 1, 3);
+                int credit = inputInt("   학점 (1~3, 취소: -9): ", 1, 3);
+                if(credit == CANCEL){
+                    System.out.println("성적 입력을 취소합니다.");
+                    cancelled = true;
+                    break;
+                }
                 subjects[subjectCount] = newName;
                 credits[subjectCount]  = credit;
 
                 int score = inputInt("   점수 (0~100, 건너뛰기: -1): ", -1, 100);
                 if(score == CANCEL){
+                    System.out.println("과목 입력을 건너뜁니다.");
                     cancelled = true;
                     break;
                 }
