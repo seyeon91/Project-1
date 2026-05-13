@@ -212,7 +212,7 @@ public class MyApp
             System.out.println("과목명\t\t학점\t점수\t등급");
 
             int[] scores = std.getScores();
-            for(int j = 0; j < subjects.length; j++){
+            for(int j = 0; j < subjectCount; j++){
                 if(scores[j] >= 0){
                     System.out.println(subjects[j]
                         + "\t" + credits[j] + "학점"
