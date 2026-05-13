@@ -54,13 +54,13 @@ public class MyApp
     }
 
     static void printMenu(){
-        System.out.println("\n----------------------------");
+        System.out.println("\n--------------Menu---------------");
         System.out.println("  1. 성적 입력");
         System.out.println("  2. 전체 학생 성적표");
         System.out.println("  3. 학생 성적 조회");
         System.out.println("  4. 과목별 성적 조회");
         System.out.println("  0. 종료");
-        System.out.println("----------------------------");
+        System.out.println("---------------------------------");
     }
 
     // 1. 성적 입력
@@ -164,9 +164,10 @@ public class MyApp
 
         for (int i = 0; i < count; i++){
             Student std = students[i]; 
+            System.out.println();
             System.out.println("이름: " + std.getName()
                 + "  학번: " + std.getStudentId()
-                + "  " + std.getYear() + "학년 " + std.getSemester() + "학기");
+                + "  " + std.getYear() + " 학년 " + std.getSemester() + " 학기");
 
             int[] scores = std.getScores();
             for (int j = 0; j < subjectCount; j++){
@@ -219,15 +220,15 @@ public class MyApp
                         + "\t" + scores[j] + "점"
                         + "\t" + std.getGrade(scores[j]));
                 }
-
-                double gpa = (int)(std.calcAvgGPA(credits) * 100) / 100.0;
-                System.out.println("평점 평균: " + gpa);
-                found = true;
-            }    
-            
-            if(i < count - 1){
-                System.out.print("해당 학번의 학생을 찾을 수 없습니다.");
             }
+            
+            double gpa = (int)(std.calcAvgGPA(credits) * 100) / 100.0;
+            System.out.println("평점 평균: " + gpa);
+            found = true;    
+        }   
+        
+        if(!found){
+            System.out.print("해당 학번의 학생을 찾을 수 없습니다.");
         }
     }
 
@@ -241,7 +242,7 @@ public class MyApp
         System.out.println("\n과목 선택:  (취소: -9)");
         for(int i = 0; i < subjectCount; i++){
             System.out.println(" " + (i + 1) + ". " + subjects[i]
-                               + " (" + credits[i] + "학점)");
+                        + " (" + credits[i] + "학점)");
         }
         
         int subNum = inputInt("선택: ", 1, subjectCount);
@@ -251,7 +252,7 @@ public class MyApp
         }
         int index = subNum - 1;
         
-        System.out.println("\n[ " + subjects[index] + " 성적 조회]");
+        System.out.println("\n[ " + subjects[index] + " 성적 조회 ]");
         System.out.println("이름\t학번\t\t점수\t등급");
         System.out.println("-------------------------");
 

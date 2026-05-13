@@ -113,6 +113,6 @@ public class Student
     }
     //학생 정보 출력
     public void print(){
-        System.out.println("이름:" + name + "학번" + studentId + " " + "학년 " + semester + "학기 ");
+        System.out.println("이름: " + name + " 학번 " + studentId + " " + year + " 학년 " + semester + " 학기 ");
     }
 }
