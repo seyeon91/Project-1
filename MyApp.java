@@ -316,7 +316,7 @@ public class MyApp
         }
     }
 
-    // 프로그램 중단 기능 (-9 입력시 초기화)
+    // 정수 입력 및 프로그램 중단 기능 (-9 입력시 초기화)
     static int inputInt(String prompt, int min, int max){
         while (true){                   //while 반복문
             try {
