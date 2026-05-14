@@ -133,9 +133,8 @@ public class MyApp
                 System.out.println("   기존 과목 [" + newName + "] 에 점수를 입력합니다.");
                 int score = inputInt("   점수 (0~100, 건너뛰기: -1): ", -1, 100);
                 if(score == CANCEL){
-                    System.out.println("과목 입력을 건너뜁니다. ");
-                    cancelled = true;
-                    break;
+                    System.out.println("과목 점수를 건너뜁니다. ");
+                    continue;
                 }
                 if(score >= 0){
                     std.setScores(existIndex, score);
@@ -153,9 +152,17 @@ public class MyApp
 
                 int score = inputInt("   점수 (0~100, 건너뛰기: -1): ", -1, 100);
                 if(score == CANCEL){
-                    cancelled = true;
-                    break;
+                    System.out.println("과목 점수를 건너뜁니다.");
+                    subjectCount++;
+                    continue;
                 }
+                
+                if(score == -1){
+                    System.out.println("점수 입력을 건너뜁니다.");
+                    subjectCount++;
+                    continue;
+                }
+                
                 if (score >= 0){
                     std.setScores(subjectCount, score);
                 }
